@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardPizza from "./CardPizza";
-import pizzas from "./pizzas.js";
+
 
 const HomePage = () => {
+  const [pizzas, setPizzas] = useState([]);
+
+  const getPizzas = async () => {
+    const response = await fetch("http://localhost:5000/api/pizzas");
+    const data = await response.json();
+    setPizzas(data);
+  };
+
+  useEffect(() => {
+    getPizzas();
+  }, []);
   return (
     <>
       <div className="row mt-4 p-4 mb-4">
@@ -10,11 +21,11 @@ const HomePage = () => {
           <div className="col-3 p-4" key={pizza.id}>
             <CardPizza
               id={pizza.id}
-              imagen={pizza.img}
-              name={pizza.name}
-              price={pizza.price}
-              desc={pizza.desc}
-              ingredients={pizza.ingredients}
+              // imagen={pizza.img}
+              // name={pizza.name}
+              // price={pizza.price}
+              // desc={pizza.desc}
+              // ingredients={pizza.ingredients}
             />
           </div>
         ))}
