@@ -1,8 +1,13 @@
 import { React, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const CardPizza = (props) => {
   console.log("cardpizza recibio este parametro: " + props.id);
-  const id = props.id;
+  //const id = props.id;
+  let { id } = useParams();
+  if (id == undefined) {
+    id = props.id;
+  }
 
   const [pizza, setPizza] = useState([]);
 
@@ -15,7 +20,7 @@ const CardPizza = (props) => {
   };
 
   useEffect(() => {
-   getPizzaById();
+    getPizzaById();
   }, []);
 
   return (
@@ -29,18 +34,15 @@ const CardPizza = (props) => {
           <p className="card-text text-center">Ingredientes:</p>
           <div className="card-text text-center">
             <ul>
-         
-
               {pizza.ingredients?.map((i) => (
                 <li>{i}</li>
-              ))} 
+              ))}
             </ul>
           </div>
           <hr />
           <h3 className="text-center">
             Precio: $ {pizza.price?.toLocaleString("es-CL")}
           </h3>
-          <h1>{id}</h1>
         </div>
       </div>
     </div>

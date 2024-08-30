@@ -16,6 +16,7 @@ const HomePage = () => {
   }, []);
   return (
     <>
+    <div > <img  className="imagenheader" src=".//img/banner.webp" alt="" /></div>
       <div className="row mt-4 p-4 mb-4">
         {pizzas.map((pizza) => (
           <div className="col-3 p-4" key={pizza.id}>
