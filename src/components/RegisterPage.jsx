@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Navbar from "../Navbar";
-import Footer from "./Footer";
+
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");

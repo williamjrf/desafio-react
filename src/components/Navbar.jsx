@@ -1,8 +1,11 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
-  const total = 25000;
+  const { cart } = useContext(CartContext);
+  const total = cart.reduce((sum, pizza) => sum + pizza.item.price * pizza.counter, 0);
+   const countPizzaCart = cart.reduce((sum, pizza) => sum + pizza.counter, 0);
   const token = false;
   return (
     <header>
@@ -66,7 +69,7 @@ const Navbar = () => {
             <form className="d-flex" role="">
               <Link className="nav-link " to="/cart">
                 <button className="btn btn-outline-primary" type="button">
-                  <i className="fa fa-shopping-cart" /> &nbsp; Total ${" "}
+                  <i className="fa fa-shopping-cart" /> &nbsp; ({countPizzaCart}) Total ${" "}
                   {total.toLocaleString("es-CL")}
                 </button>
               </Link>
