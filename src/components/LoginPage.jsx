@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext,useEffect  } from "react";
 import { useState } from "react";
-
+import { UserContext } from "../context/UserContext";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useContext(UserContext);
+
 
   // Manejador de cambios para el email
   const handleEmailChange = (event) => {
@@ -15,22 +17,20 @@ const LoginPage = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => { 
+  const handleSubmit = (event) => {
     if (email.length == 0) {
       alert("El email es requerido");
       event.preventDefault();
-    }else if(password.length==0){
-        alert("El password es requerido");
-        event.preventDefault();
-
-    }else if(password.length<=5) {
-        alert("el password debe tener al menos 6 caracteres");
-        event.preventDefault();
+    } else if (password.length == 0) {
+      alert("El password es requerido");
+      event.preventDefault();
+    } else if (password.length <= 5) {
+      alert("el password debe tener al menos 6 caracteres");
+      event.preventDefault();
+    } else {
+      alert("el login es correcto");
+      login();
     }
-    else{
-        alert("el login es correcto")
-    }
-    
   };
 
   return (

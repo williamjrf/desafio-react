@@ -1,38 +1,11 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
-
+import { UserContext } from "../context/UserContext";
 const Cart = () => {
 
-  // Inicializar el estado del carrito
-  //const [cart, setCart] = useState(pizzaCart.filter((pizza) => pizza.counter > 0));
   const { cart, clearCart, incrementPizza, decrementPizza } = useContext(CartContext);
-  // const handleIncrement = (id) => {
-  //   setCart(prevCart => {
-  //     // Incrementar el contador de la pizza correspondiente
-  //     const updatedCart = prevCart.map(pizza =>
-  //       pizza.id === id
-  //         ? { ...pizza, counter: pizza.counter + 1 }
-  //         : pizza
-  //     );
-  //     // Filtrar pizzas con counter > 0 y retornar el nuevo estado
-  //     return updatedCart.filter(pizza => pizza.counter > 0);
-  //   });
-  // };
-
-  // Función para manejar el descuento de la cantidad
-  // const handleDecrement = (id) => {
-  //   setCart(prevCart => {
-  //     // Decrementar el contador de la pizza correspondiente
-  //     const updatedCart = prevCart.map(pizza =>
-  //       pizza.id === id && pizza.counter > 0
-  //         ? { ...pizza, counter: pizza.counter - 1 }
-  //         : pizza
-  //     );
-  //     // Filtrar pizzas con counter > 0 y retornar el nuevo estado
-  //     return updatedCart.filter(pizza => pizza.counter > 0);
-  //   });
-  // };
-
+  const {token}= useContext(UserContext);
+  const setHabilitarBoton=()=>{};
 
   // Calcular el total a pagar
   const totalCart = cart.reduce((sum, pizza) => sum + pizza.item.price * pizza.counter, 0);
@@ -123,7 +96,7 @@ const Cart = () => {
       <div className="row align-items-center mt-4 mb-4">
         <div className="col align-self-center">
           <h4>Total a pagar: <strong>{totalCart.toLocaleString("es-CL")}</strong></h4>
-          <button className="btn btn-info">Pagar</button>&nbsp;
+          <button className="btn btn-info" disabled={!token}>Pagar</button>&nbsp;
           <button className="btn btn-secondary" onClick={()=>{clearCart()}}>limpiar Carrito</button>
         </div>
       </div>

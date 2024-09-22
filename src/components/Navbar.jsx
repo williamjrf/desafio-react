@@ -1,12 +1,13 @@
 import React,{useContext} from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
   const { cart } = useContext(CartContext);
   const total = cart.reduce((sum, pizza) => sum + pizza.item.price * pizza.counter, 0);
-   const countPizzaCart = cart.reduce((sum, pizza) => sum + pizza.counter, 0);
-  const token = false;
+  const countPizzaCart = cart.reduce((sum, pizza) => sum + pizza.counter, 0);
+  const {token,logout} = useContext(UserContext);
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -36,13 +37,13 @@ const Navbar = () => {
               {token && (
                 <>
                   <li className="nav-item">
-                    <a className="nav-link" aria-current="page" href="#">
-                      <i className="fa fa-unlock-alt" />
+                    <Link className="nav-link " to="/profile">
+                      <i className="fa fa-lock" />
                       &nbsp; Profile
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" aria-current="page" href="#">
+                    <a className="nav-link" aria-current="page"  onClick={()=>{logout()}}>
                       <i className="fa fa-lock" />
                       &nbsp; Logout
                     </a>
