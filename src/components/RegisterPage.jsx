@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
-
+import { UserContext } from "../context/UserContext";
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {email, setEmail,password,setPassword,errorRegister,registerUser} =useContext(UserContext);
   const [confirmPassword, setChangePassword] = useState("");
 
   // Manejador de cambios para el email
@@ -22,7 +21,7 @@ const RegisterPage = () => {
     setChangePassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     if (email.length == 0) {
       alert("El email es requerido");
       event.preventDefault();
@@ -36,14 +35,14 @@ const RegisterPage = () => {
       alert("los password no coinciden");
       event.preventDefault();
     } else {
-      alert("Registro de usuario exitoso");
+      await registerUser();
     }
   };
 
   return (
     <div className="row pt-5">
       <div className="col-md-6 offset-md-3">
-        <form onSubmit={handleSubmit}>
+        <form >
           <h1 className="h3 mb-3 fw-normal">Register</h1>
 
           <div className="form-floating">
@@ -80,9 +79,11 @@ const RegisterPage = () => {
             <label>Confirm Password</label>
           </div>
 
-          <button className="btn btn-primary w-100 py-2 mt-4" type="submit">
+          <button className="btn btn-primary w-100 py-2 mt-4" type="button" onClick={handleSubmit}>
             Registrar Usuario
           </button>
+          <br />
+          {errorRegister.length>0 && <p className="text-danger">{errorRegister} </p>}
         </form>
       </div>
     </div>

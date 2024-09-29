@@ -3,10 +3,9 @@ import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
 const Cart = () => {
 
-  const { cart, clearCart, incrementPizza, decrementPizza } = useContext(CartContext);
+  const { cart, clearCart, incrementPizza, decrementPizza,sendCart } = useContext(CartContext);
   const {token}= useContext(UserContext);
-  const setHabilitarBoton=()=>{};
-
+ 
   // Calcular el total a pagar
   const totalCart = cart.reduce((sum, pizza) => sum + pizza.item.price * pizza.counter, 0);
   
@@ -96,7 +95,7 @@ const Cart = () => {
       <div className="row align-items-center mt-4 mb-4">
         <div className="col align-self-center">
           <h4>Total a pagar: <strong>{totalCart.toLocaleString("es-CL")}</strong></h4>
-          <button className="btn btn-info" disabled={!token}>Pagar</button>&nbsp;
+          <button className="btn btn-info" disabled={!token} onClick={()=>{sendCart()}}>Pagar</button>&nbsp;
           <button className="btn btn-secondary" onClick={()=>{clearCart()}}>limpiar Carrito</button>
         </div>
       </div>

@@ -1,23 +1,30 @@
-import React, { useContext,useEffect  } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { UserContext } from "../context/UserContext";
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login } = useContext(UserContext);
-
+  const {
+    login,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    errorLogin,
+    setErrorLogin,
+  } = useContext(UserContext);
 
   // Manejador de cambios para el email
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setErrorLogin("");
   };
 
   // Manejador de cambios para el password
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setErrorLogin("");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     if (email.length == 0) {
       alert("El email es requerido");
       event.preventDefault();
@@ -28,15 +35,14 @@ const LoginPage = () => {
       alert("el password debe tener al menos 6 caracteres");
       event.preventDefault();
     } else {
-      alert("el login es correcto");
-      login();
+      await login();
     }
   };
 
   return (
     <div className="row pt-5">
       <div className="col-md-6 offset-md-3">
-        <form onSubmit={handleSubmit}>
+        <form>
           <h1 className="h3 mb-3 fw-normal">Login</h1>
 
           <div className="form-floating">
@@ -62,9 +68,16 @@ const LoginPage = () => {
             <label>Password</label>
           </div>
 
-          <button className="btn btn-primary w-100 py-2 mt-4" type="submit">
+          <button
+            className="btn btn-primary w-100 py-2 mt-4"
+            type="button"
+            onClick={handleSubmit}
+          >
             Iniciar Sesión
           </button>
+
+          <br />
+          {errorLogin.length>0 && <p className="text-danger">{errorLogin} </p>}
         </form>
       </div>
     </div>
